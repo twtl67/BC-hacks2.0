@@ -63,22 +63,18 @@ public class Board {
         for (int r = 0; r < WIDTH; r++) {
             for (int c = 0; c < HEIGHT; c++) {
                 if (getBot(r, c) != null) {
-
                     int nextCord = getBot(r, c).advance();
-
                     switch (nextCord) {
                         case -1:
                             if (getPlayerWall(r).loseLife() == -1) {
                                 return 2;
                             }
                             break;
-
                         case WIDTH:
                             if (getComputerWall(r).loseLife() == -1) {
                                 return 3;
                             }
                             break;
-
                         default:
                             collision_result(nextCord, r, c);
                     }
