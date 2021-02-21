@@ -6,6 +6,7 @@ public class Board {
     private Bot[][] board_bot;
     private Wall[] playerWall;
     private Wall[] computerWall;
+    private Computer comp;
 
     final int HEIGHT = 5;
     final int WIDTH = 8;
@@ -20,6 +21,7 @@ public class Board {
             playerWall[i] = new Wall();
             computerWall[i] = new Wall();
         }
+        comp = new Comp(HEIGHT);
     }
 
     public Bot[][] getBoard_bot() {
