@@ -118,6 +118,7 @@ public class GUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "play":
+                GameWindow gameWindow = new GameWindow(p1, p2, game, gameBoard);
                 break;
             case "rules":
                 popup("we put in the rules here...", "Rules");
