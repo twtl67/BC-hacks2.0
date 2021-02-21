@@ -12,7 +12,8 @@ public class Wall {
         return lives;
     }
 
-    public void loseLife() {
+    public int loseLife() {
         lives--;
+        return lives;
     }
 }
