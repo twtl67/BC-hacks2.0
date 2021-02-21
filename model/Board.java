@@ -6,8 +6,11 @@ public class Board {
     private Bot[][] board_bot;
     private Wall[] playerWall;
     private Wall[] computerWall;
+
     final int HEIGHT = 8;
     final int WIDTH = 8;
+
+
 
     public Board() {
         board_bot = new Bot[HEIGHT][WIDTH];
