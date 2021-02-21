@@ -3,43 +3,43 @@ package model;
 
 public class Board {
     // A board has a list of bots on the screen, and the wall strength on either side
-    private Bot[][] board;
+    private Bot[][] board_bot;
     private Wall[] playerWall;
     private Wall[] computerWall;
-    int height;
-    int width;
-    static final int WIDTH = 3; //change condition of switch when done, had to initialize this to avoid error
 
-    public Board(int h, int w) {
-        height = h;
-        width = w;
-        board = new Bot[height][width];
-        playerWall = new Wall[height];
-        computerWall = new Wall[height];
-        for (int i = 0; i < height; i++) {
+    final int HEIGHT = 8;
+    final int WIDTH = 8;
+
+
+
+    public Board() {
+        board_bot = new Bot[HEIGHT][WIDTH];
+        playerWall = new Wall[HEIGHT];
+        computerWall = new Wall[HEIGHT];
+        for (int i = 0; i < HEIGHT; i++) {
             playerWall[i] = new Wall();
             computerWall[i] = new Wall();
         }
     }
 
-    public Bot[][] getBoard() {
-        return board;
+    public Bot[][] getBoard_bot() {
+        return board_bot;
     }
 
     public Bot getBot(int row, int column) {
-        return board[row][column];
+        return board_bot[row][column];
     }
 
     public void addPlayerBot(Category category, int row) {
-        board[row][0] = new Bot(category, true, 0, row);
+        board_bot[row][0] = new Bot(category, true, 0, row);
     }
 
     public void addComputerBot(Category category, int row) {
-        board[row][width - 1] = new Bot(category, false, width - 1, row);
+        board_bot[row][WIDTH - 1] = new Bot(category, false, WIDTH - 1, row);
     }
 
     public void removeBot(int row, int column) {
-        board[row][column] = null;
+        board_bot[row][column] = null;
     }
 
     public Wall[] getPlayerWall() {
@@ -63,8 +63,8 @@ public class Board {
     // returns 2 if computer wins
     // returns 3 if player wins
     private int tick() {
-        for (int r = 0; r < width; r++) {
-            for (int c = 0; c < height; c++) {
+        for (int r = 0; r < WIDTH; r++) {
+            for (int c = 0; c < HEIGHT; c++) {
                 if (getBot(r, c) != null) {
                     int nextCord = getBot(r, c).advance();
                     switch (nextCord) {
@@ -79,24 +79,7 @@ public class Board {
                             }
                             break;
                         default:
-                            if (getBot(nextCord, c) != null) {
-                                switch (collide(getBot(r, nextCord), getBot(r, c))) {
-                                    case 0:
-                                        removeBot(r, nextCord);
-                                        removeBot(r, c);
-                                        break;
-                                    case 1:
-                                        removeBot(r, c);
-                                        break;
-                                    case 2:
-                                        // there's a bug right here because the bot can be advanced again in the same cycle
-                                        board[r][nextCord] = getBot(r, c);
-                                        break;
-                                }
-                            } else {
-                                // same right here
-                                board[r][nextCord] = getBot(r, c);
-                            }
+                            collision_result(nextCord, r, c);
                     }
                 }
             }
@@ -104,34 +87,71 @@ public class Board {
         return 1;
     }
 
+    public void collision_result(int nextCord, int r, int c) {
+        // bot 1 = nextCord one
+        Bot bot1 = getBot(nextCord, c);
+        Bot bot2 = getBot(r, c);
+        if (bot1 != null) {
+            switch (collide(bot1, bot2)) {
+                // check collisions b/w 2 bots
+                case 0:
+                    // 0 = no one wins, both bots removed only; no advancements
+                    removeBot(nextCord, c);
+                    removeBot(r, c);
+                    break;
+                case 1:
+                    // bot1 wins, bot 1 (nextCord one) advances, bot 2 removed
+                    removeBot(nextCord, c);
+                    removeBot(r, c);
+                    board_bot[bot1.advance()][c] = bot1;
+                    break;
+                case 2:
+                    // bot 2 wins, bot 2 advances, bot 1 removed
+                    removeBot(nextCord, c);
+                    removeBot(r, c);
+                    board_bot[bot2.advance()][c] = bot2;
+                    break;
+            }
+        }
+        //else { //no else case since only 0,1,2 are possible values from collide
+            // same right here
+            //board[r][nextCord] = getBot(r, c);
+        //}
+    }
+
     // returns the number of the bot that wins
+    // 0 = no one wins
+    // 1 = bot 1 wins
+    // 2 = bot 2 wins
     public int collide(Bot bot1, Bot bot2) {
+        int result = 0;
         if (bot1.getCategory() == bot2.getCategory()) {
-            return 0;
+            // result = 0;
+        } else {
+            switch (bot1.getCategory()) {
+                case Rock:
+                    switch (bot2.getCategory()) {
+                        case Scissors:
+                            result = 1;
+                        case Paper:
+                            result = 2;
+                    }
+                case Paper:
+                    switch (bot2.getCategory()) {
+                        case Rock:
+                            result = 1;
+                        case Scissors:
+                            result = 2;
+                    }
+                case Scissors:
+                    switch (bot2.getCategory()) {
+                        case Paper:
+                            result = 1;
+                        case Rock:
+                            result = 2;
+                    }
+            }
         }
-        switch (bot1.getCategory()) {
-            case Rock:
-                switch (bot2.getCategory()) {
-                    case Scissors:
-                        return 1;
-                    case Paper:
-                        return 2;
-                }
-            case Paper:
-                switch (bot2.getCategory()) {
-                    case Rock:
-                        return 1;
-                    case Scissors:
-                        return 2;
-                }
-            case Scissors:
-                switch (bot2.getCategory()) {
-                    case Paper:
-                        return 1;
-                    case Rock:
-                        return 2;
-                }
-        }
-        return 0;
+        return result;
     }
 }
