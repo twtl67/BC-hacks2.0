@@ -8,6 +8,7 @@ public class Board {
     private Wall[] computerWall;
     int height;
     int width;
+    static final int WIDTH = 3;
 
     public Board(int h, int w) {
         height = h;
@@ -72,7 +73,7 @@ public class Board {
                                 return 2;
                             }
                             break;
-                        case width:
+                        case WIDTH:
                             if (getComputerWall(r).loseLife() == -1) {
                                 return 3;
                             }
