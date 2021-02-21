@@ -88,7 +88,6 @@ public class Board {
         // bot 1 = nextCord one
         Bot bot1 = getBot(nextCord, c);
         Bot bot2 = getBot(r, c);
-
         if (bot1 != null) {
             switch (collide(bot1, bot2)) {
                 // check collisions b/w 2 bots
