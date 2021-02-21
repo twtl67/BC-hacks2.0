@@ -1,13 +1,13 @@
 package model;
 
+
 public class Board {
     // A board has a list of bots on the screen, and the wall strength on either side
     private Bot[][] board;
     private Wall[] playerWall;
     private Wall[] computerWall;
-    //
-    final int width = 8;
-    final int height = 7;
+
+
 
     public Board() {
         board = new Bot[height][width];
