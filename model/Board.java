@@ -6,10 +6,12 @@ public class Board {
     private Bot[][] board;
     private Wall[] playerWall;
     private Wall[] computerWall;
+    int height;
+    int width;
 
-
-
-    public Board() {
+    public Board(int h, int w) {
+        height = h;
+        width = w;
         board = new Bot[height][width];
         playerWall = new Wall[height];
         computerWall = new Wall[height];
