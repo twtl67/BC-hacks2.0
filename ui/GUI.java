@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 
 public class GUI implements ActionListener {
     private Board board;
-    private final int TESTHEIGHT = 3; //change init when board is done
-    private final int TESTWIDTH = 3;  //change init when board is done
     private Player player;
     private String name; //name of the player
 
@@ -56,7 +54,7 @@ public class GUI implements ActionListener {
                 ""));
 
         player = new Player(name);
-        board = new Board(TESTHEIGHT, TESTWIDTH);
+        board = new Board();
     }
 
     private void displayMenu() {
