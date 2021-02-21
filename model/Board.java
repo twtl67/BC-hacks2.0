@@ -8,7 +8,7 @@ public class Board {
     private Wall[] computerWall;
     int height;
     int width;
-    static final int WIDTH = 3;
+    static final int WIDTH = 3; //change condition of switch when done, had to initialize this to avoid error
 
     public Board(int h, int w) {
         height = h;
