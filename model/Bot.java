@@ -1,20 +1,16 @@
 package model;
 
 public class Bot {
-    // A bot has a category, a direction it faces, and its position on the board
+    // A bot has a category, a direction it faces
     private Category category;
     private boolean playerOwned;
-
-    // Top-left box on the board is (0,0)
-    private int x;
-    private int y;
+    private boolean moved;
 
     // Constructor
-    public Bot(Category category, boolean playerOwned, int column, int row) {
+    public Bot(Category category, boolean playerOwned) {
         this.category = category;
         this.playerOwned = playerOwned;
-        this.x = column;
-        this.y = row;
+        this.moved = true;
     }
 
     public Category getCategory() {
@@ -25,20 +21,11 @@ public class Bot {
         return playerOwned;
     }
 
-//    public int getX() {
-//        return x;
-//    }
-//
-//    public int getY() {
-//        return y;
-//    }
+    public boolean getMoved() {
+        return moved;
+    }
 
-    public int advance() {
-        if (playerOwned) {
-            x++;
-        } else {
-            x--;
-        }
-        return x;
+    public void setMoved(boolean moved) {
+        this.moved = moved;
     }
 }

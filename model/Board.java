@@ -7,7 +7,7 @@ public class Board {
     private Wall[] playerWall;
     private Wall[] computerWall;
 
-    final int HEIGHT = 8;
+    final int HEIGHT = 5;
     final int WIDTH = 8;
 
 
@@ -31,11 +31,11 @@ public class Board {
     }
 
     public void addPlayerBot(Category category, int row) {
-        board_bot[row][0] = new Bot(category, true, 0, row);
+        board_bot[row][0] = new Bot(category, true);
     }
 
     public void addComputerBot(Category category, int row) {
-        board_bot[row][WIDTH - 1] = new Bot(category, false, WIDTH - 1, row);
+        board_bot[row][WIDTH - 1] = new Bot(category, false);
     }
 
     public void removeBot(int row, int column) {
@@ -65,8 +65,13 @@ public class Board {
     private int tick() {
         for (int r = 0; r < WIDTH; r++) {
             for (int c = 0; c < HEIGHT; c++) {
-                if (getBot(r, c) != null) {
-                    int nextCord = getBot(r, c).advance();
+                if (getBot(r, c) != null && !getBot(r, c).getMoved()) {
+                    int nextCord;
+                    if (getBot(r, c).getPlayerOwned()) {
+                        nextCord = r + 1;
+                    } else {
+                        nextCord = r - 1;
+                    }
                     switch (nextCord) {
                         case -1:
                             if (getPlayerWall(r).loseLife() == -1) {
@@ -84,6 +89,15 @@ public class Board {
                 }
             }
         }
+
+        for (int r = 0; r < WIDTH; r++) {
+            for (int c = 0; c < HEIGHT; c++) {
+                if (getBot(r,c) != null) {
+                    getBot(r,c).setMoved(false);
+                }
+            }
+        }
+
         return 1;
     }
 
@@ -100,23 +114,21 @@ public class Board {
                     removeBot(r, c);
                     break;
                 case 1:
-                    // bot1 wins, bot 1 (nextCord one) advances, bot 2 removed
-                    removeBot(nextCord, c);
+                    // bot1 wins, bot 2 removed
                     removeBot(r, c);
-                    board_bot[bot1.advance()][c] = bot1;
                     break;
                 case 2:
-                    // bot 2 wins, bot 2 advances, bot 1 removed
-                    removeBot(nextCord, c);
+                    // bot 2 wins, bot 1 removed
                     removeBot(r, c);
-                    board_bot[bot2.advance()][c] = bot2;
+                    board_bot[nextCord][c] = bot2;
+                    bot2.setMoved(true);
                     break;
             }
+        } else {
+            removeBot(r, c);
+            board_bot[nextCord][c] = bot2;
+            bot2.setMoved(true);
         }
-        //else { //no else case since only 0,1,2 are possible values from collide
-            // same right here
-            //board[r][nextCord] = getBot(r, c);
-        //}
     }
 
     // returns the number of the bot that wins
