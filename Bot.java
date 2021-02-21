@@ -6,7 +6,7 @@ public class Bot {
     private boolean playerOwned;
 
     // Top-left box on the board is (0,0)
-    private double x;
+    private int x;
     private int y;
 
     // Constructor
@@ -25,11 +25,20 @@ public class Bot {
         return playerOwned;
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
     public int getY() {
         return y;
+    }
+
+    public int advance() {
+        if (playerOwned) {
+            x++;
+        } else {
+            x--;
+        }
+        return x;
     }
 }
