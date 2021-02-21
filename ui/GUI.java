@@ -28,8 +28,6 @@ public class GUI implements ActionListener {
 
         init();
         displayMenu();
-        drawBoard();
-
 
         panel.setBackground(Color.BLACK);
         frame.setVisible(true);
@@ -40,21 +38,6 @@ public class GUI implements ActionListener {
         ui.put("OptionPane.messageForeground", Color.orange);
     }
 
-    private void drawBoard() {
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon("./emptyIcon.png").getImage().
-                        getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 5; j++) {
-                final JLabel label = new JLabel(imageIcon);
-                String string = i + "" + j;
-                label.setName(string);
-                label.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-                setFontColour(label);
-                panel.add(label);
-            }
-        }
-    }
 
 
 
@@ -102,13 +85,6 @@ public class GUI implements ActionListener {
         panel.add(button);
     }
 
-    private void setFontColour(JLabel label) {
-        label.setBackground(Color.BLACK);
-        label.setForeground(Color.orange);
-        label.setFont(font);
-        panel.add(label);
-    }
-
     private void popup(String msg, String title) {
         JOptionPane.showMessageDialog(null, msg,
                 title, JOptionPane.INFORMATION_MESSAGE);
@@ -118,7 +94,7 @@ public class GUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "play":
-                GameWindow gameWindow = new GameWindow(p1, p2, game, gameBoard);
+                GameWindow gameWindow = new GameWindow(board);
                 break;
             case "rules":
                 popup("we put in the rules here...", "Rules");
