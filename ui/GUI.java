@@ -1,6 +1,8 @@
 package ui;
 
-import model.*;
+import model.Board;
+import model.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,14 +13,14 @@ public class GUI implements ActionListener {
     private Player player;
     private String name; //name of the player
 
-
     private JButton play;
     private JButton rules;
     private JFrame frame = new JFrame();
     private JPanel panel = new JPanel();
     private Font font = new Font("Courier New", Font.BOLD, 25);
 
-    public GUI(){
+
+    public GUI() {
         frame.setSize(1000, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("DEXTER!");
@@ -26,6 +28,7 @@ public class GUI implements ActionListener {
 
         init();
         displayMenu();
+        drawBoard();
 
 
         panel.setBackground(Color.BLACK);
@@ -37,11 +40,26 @@ public class GUI implements ActionListener {
         ui.put("OptionPane.messageForeground", Color.orange);
     }
 
-    private void drawBoard(){
+    private void drawBoard() {
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("./emptyIcon.png").getImage().
+                        getScaledInstance(25, 25, Image.SCALE_DEFAULT));
 
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 5; j++) {
+                final JLabel label = new JLabel(imageIcon);
+                String string = i + "" + j;
+                label.setName(string);
+                label.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+                setFontColour(label);
+                panel.add(label);
+            }
+        }
     }
 
-    private void init(){
+
+
+
+    private void init() {
         //having a dialog box for name input
         Icon image = new ImageIcon("./dexter.png");
         UIManager ui = new UIManager();
@@ -82,6 +100,13 @@ public class GUI implements ActionListener {
         button.setForeground(Color.orange);
         button.setFont(font);
         panel.add(button);
+    }
+
+    private void setFontColour(JLabel label) {
+        label.setBackground(Color.BLACK);
+        label.setForeground(Color.orange);
+        label.setFont(font);
+        panel.add(label);
     }
 
     private void popup(String msg, String title) {
