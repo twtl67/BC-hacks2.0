@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/BC-hacks2.0.iml" filepath="$PROJECT_DIR$/BC-hacks2.0.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/BChacks2.0.iml" filepath="$PROJECT_DIR$/BChacks2.0.iml" />
+>>>>>>> e1ad5d8c3171bdaebca6d07549ae9b11ec4ba47c
     </modules>
   </component>
 </project>
