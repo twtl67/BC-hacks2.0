@@ -1,34 +1,35 @@
 package model;
+import java.lang.Math;
 
 public class Player {
     private String name;
-    private enum nextBot;
+    private Category nextBot;
 
     public Player(String name) {
         this.name = name;
-        nextBot = generateNextBot();
+        generateNextBot();
     }
 
     public String getName(){
         return name;
     }
 
-    public enum getNextBot() {
-        enum temp = nextBot;
+    public Category getNextBot() {
+        Category temp = nextBot;
         generateNextBot();
         return temp;
     }
 
     public void generateNextBot() {
-        switch(Math.random() * 3) {
+        switch((int) (Math.random() * 3)) {
             case 0:
-                nextBot = Rock;
+                nextBot = Category.Rock;
                 break;
             case 1:
-                nextBot = Paper;
+                nextBot = Category.Paper;
                 break;
             case 2:
-                nextBot = Scissors;
+                nextBot = Category.Scissors;
                 break;
         }
     }

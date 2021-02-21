@@ -15,6 +15,6 @@ public class Computer extends Player {
     }
 
     public void generateNextRow() {
-        nextRow = Math.random() * height;
+        nextRow = (int) (Math.random() * height);
     }
 }

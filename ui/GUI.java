@@ -21,21 +21,24 @@ public class GUI implements ActionListener {
     public GUI(){
         frame.setSize(1000, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Time to Tic Tac Toe!");
+        frame.setTitle("DEXTER!");
         frame.add(panel);
 
         init();
         displayMenu();
 
-        //panel.setLayout(new GridLayout(2, 1));
+
         panel.setBackground(Color.BLACK);
-        //frame.pack();
         frame.setVisible(true);
 
         UIManager ui = new UIManager();
         ui.put("OptionPane.messageFont", new Font("Courier New", Font.BOLD, 15));
         ui.put("OptionPane.background", Color.DARK_GRAY);
         ui.put("OptionPane.messageForeground", Color.orange);
+    }
+
+    private void drawBoard(){
+
     }
 
     private void init(){

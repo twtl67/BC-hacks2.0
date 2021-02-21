@@ -21,7 +21,7 @@ public class Board {
             playerWall[i] = new Wall();
             computerWall[i] = new Wall();
         }
-        comp = new Comp(HEIGHT);
+        comp = new Computer(HEIGHT);
     }
 
     public Bot[][] getBoard_bot() {
@@ -70,9 +70,9 @@ public class Board {
                 if (getBot(r, c) != null && !getBot(r, c).getMoved()) {
                     int nextCord;
                     if (getBot(r, c).getPlayerOwned()) {
-                        nextCord = r + 1;
+                        nextCord = c + 1;
                     } else {
-                        nextCord = r - 1;
+                        nextCord = c - 1;
                     }
                     switch (nextCord) {
                         case -1:
