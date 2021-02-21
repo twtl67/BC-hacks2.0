@@ -1,5 +1,4 @@
 package model;
-
 public class Wall {
     // A wall has 3 lives at the beginning. It loses one life if a bot from the enemy team collides with it
     private int lives;
