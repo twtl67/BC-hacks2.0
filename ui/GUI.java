@@ -1,7 +1,6 @@
 package ui;
 
-import model.Board;
-import model.Player;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;

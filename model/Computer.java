@@ -1,6 +1,6 @@
 package model;
 
-public class Computer extends Player {
+public class Computer extends Player{
     private int nextRow;
     private int height;
 
