@@ -5,7 +5,7 @@ public class Board {
     private Bot[][] board;
     private Wall[] playerWall;
     private Wall[] computerWall;
-
+    //
     final int width = 8;
     final int height = 7;
 
